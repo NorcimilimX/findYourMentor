@@ -3,29 +3,35 @@
     <h1>Mentors List <span>, Filter it</span></h1>
   </section>
   <section>
-    <div class="controls">
-      <button>Refresh</button>
-      <router-link to="/register">Register as a Mentor</router-link>
-    </div>
-    <ul v-if="hasMentors">
-      <mentor-item
-          v-for="mentor in filteredMentors"
-          :id="mentor.id"
-          :key="mentor.id"
-          :first-name="mentor.firstName"
-          :last-name="mentor.lastName"
-          :rate="mentor.hourlyRate"
-          :areas="mentor.areas"
-      ></mentor-item>
-    </ul>
-    <h3 v-else>No mentors found.</h3>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline">Refresh</base-button>
+        <base-button link to="/register">Register as a Mentor</base-button>
+      </div>
+      <ul v-if="hasMentors">
+        <mentor-item
+            v-for="mentor in filteredMentors"
+            :id="mentor.id"
+            :key="mentor.id"
+            :first-name="mentor.firstName"
+            :last-name="mentor.lastName"
+            :rate="mentor.hourlyRate"
+            :areas="mentor.areas"
+        ></mentor-item>
+      </ul>
+      <h3 v-else>No mentors found.</h3>
+    </base-card>
   </section>
 </template>
 <script>
 import MentorItem from "../../components/mentors/MentorItem.vue";
+import BaseCard from "../../components/ui/BaseCard.vue";
+import BaseButton from "../../components/ui/BaseButton.vue";
 
 export default  {
   components: {
+    BaseButton,
+    BaseCard,
     MentorItem
   },
   computed: {
