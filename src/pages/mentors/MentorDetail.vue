@@ -1,10 +1,64 @@
 <template>
   <section>
-    <h1>Mentors Details</h1>
+    <base-card>
+      <h2>{{ fullName }}</h2>
+      <h3>{{ rate }}/hour</h3>
+    </base-card>
   </section>
+
   <section>
-    <h3>Some text is here</h3>
+    <base-card>
+      <header>
+        <h2>
+          Contact <strong>Mentor</strong> if you are interested.
+          <br>Reach out <strong>now</strong>!
+        </h2>
+        <base-button link @click="contactLink">Contact Mentor</base-button>
+      </header>
+    </base-card>
+  </section>
+
+  <section>
+    <base-card>
+      <base-badge v-for="area in areas" :key="area" :type="area"></base-badge>
+      <p>{{ description }}</p>
+    </base-card>
   </section>
 </template>
-<script setup>
+
+<script>
+
+export default {
+  // components: {BaseBadge},
+  props: ['id'],
+  data() {
+    return {
+      selectedMentor: null
+    }
+  },
+  computed: {
+    fullName() {
+      return this.selectedMentor.firstName + ' ' + this.selectedMentor.lastName
+    },
+    areas() {
+      return this.selectedMentor.areas
+    },
+    rate() {
+      return this.selectedMentor.hourlyRate
+    },
+    description() {
+      return this.selectedMentor.description
+    }
+  },
+  created() {
+    this.selectedMentor = this.$store.getters['mentors/mentors'].find(
+        (mentor) => mentor.id === this.id
+    );
+  },
+  methods: {
+    contactLink() {
+      this.$router.push({ name: 'mentors' })
+    },
+  }
+}
 </script>

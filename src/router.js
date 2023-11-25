@@ -9,13 +9,12 @@ import NotFound from './pages/NotFound.vue'
 
 const routes = [
     { path: '/', redirect: '/mentors' },
-    { path: '/mentors', component: MentorsList },
+    { path: '/mentors/:id/contact', name: 'contact-mentor', component: ContactMentor },
+    { path: '/mentors', name: 'mentors', component: MentorsList },
     {
         path: '/mentors/:id',
         component: MentorDetail,
-        children: [
-            { path: '/contact', component: ContactMentor }
-        ]
+        props: true,
     },
     { path: '/register', component: MentorsRegistration },
     { path: '/requests', component: RequestsReceived },
