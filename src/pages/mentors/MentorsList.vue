@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Mentors List <span>, Filter it</span></h1>
+    <mentor-filter @change-filter="setFilters"></mentor-filter>
   </section>
   <section>
     <base-card>
@@ -27,19 +27,59 @@
 import MentorItem from "../../components/mentors/MentorItem.vue";
 import BaseCard from "../../components/ui/BaseCard.vue";
 import BaseButton from "../../components/ui/BaseButton.vue";
+import MentorFilter from "../../components/mentors/MentorFilter.vue";
 
 export default  {
   components: {
     BaseButton,
     BaseCard,
-    MentorItem
+    MentorItem,
+    MentorFilter
+  },
+  data() {
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true,
+        devops: true,
+        marketing: true,
+        pm: true
+      }
+    }
   },
   computed: {
     filteredMentors() {
-      return this.$store.getters['mentors/mentors'];
+      const mentors = this.$store.getters['mentors/mentors'];
+      return mentors.filter(mentor => {
+        if (this.activeFilters.frontend && mentor.areas.includes('frontend')) {
+          return true
+        }
+        if (this.activeFilters.backend && mentor.areas.includes('backend')) {
+          return true
+        }
+        if (this.activeFilters.career && mentor.areas.includes('career')) {
+          return true
+        }
+        if (this.activeFilters.devops && mentor.areas.includes('devops')) {
+          return true
+        }
+        if (this.activeFilters.marketing && mentor.areas.includes('marketing')) {
+          return true
+        }
+        if (this.activeFilters.pm && mentor.areas.includes('pm')) {
+          return true
+        }
+        return false
+      })
     },
     hasMentors() {
       return this.$store.getters['mentors/hasMentors']
+    }
+  },
+  methods: {
+    setFilters(updatedFilters) {
+      this.activeFilters = updatedFilters
     }
   }
 }
