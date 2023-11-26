@@ -10,7 +10,7 @@
     </div>
     <div class="form-control">
       <label for="description">Describe yourself</label>
-      <textarea id="description" rows="5" v-model.trim="description"></textarea>
+      <textarea id="description" rows="10" v-model.trim="description"></textarea>
     </div>
     <div class="form-control">
       <label for="rate">Hourly Rate($)</label>
@@ -48,6 +48,7 @@
 </template>
 <script>
 export default {
+  emits: ['save-data'],
   data() {
     return {
       firstName: '',
@@ -62,11 +63,11 @@ export default {
       const formData = {
         first: this.firstName,
         last: this.lastName,
-        description: this.description,
+        desc: this.description,
         rate: this.rate,
         areas: this.areas
       }
-      console.log(formData)
+      this.$emit('save-data', formData)
     }
   }
 }

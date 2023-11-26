@@ -2,7 +2,7 @@
   <section>
     <base-card>
       <h2>You have some knowledge to share?<br><strong>Register as a mentor now!</strong></h2>
-      <mentor-form></mentor-form>
+      <mentor-form @save-data="saveData"></mentor-form>
     </base-card>
   </section>
 </template>
@@ -14,6 +14,12 @@ export default {
   components: {
     BaseCard,
     MentorForm
+  },
+  methods: {
+    saveData(data) {
+      this.$store.dispatch('mentors/registerMentor', data)
+      this.$router.replace('/mentors')
+    }
   }
 }
 </script>
