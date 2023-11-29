@@ -13,8 +13,9 @@
           Contact <strong>Mentor</strong> if you are interested.
           <br>Reach out <strong>now</strong>!
         </h2>
-        <base-button link @click="contactLink">Contact Mentor</base-button>
+        <base-button link :to="contactLink">Contact</base-button>
       </header>
+      <router-view></router-view>
     </base-card>
   </section>
 
@@ -46,6 +47,9 @@ export default {
     rate() {
       return this.selectedMentor.hourlyRate
     },
+    contactLink() {
+      return this.$route.path + '/contact';
+    },
     description() {
       return this.selectedMentor.description
     }
@@ -55,10 +59,5 @@ export default {
         (mentor) => mentor.id === this.id
     );
   },
-  methods: {
-    contactLink() {
-      this.$router.push({ name: 'mentors' })
-    },
-  }
 }
 </script>
