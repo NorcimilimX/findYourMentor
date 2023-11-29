@@ -30,7 +30,7 @@ export default {
         this.formIsValid = false
         return
       }
-      console.log('asdas', this.router.params.id)
+
       this.$store.dispatch('requests/contactMentor', {
         email: this.email,
         message: this.message,
