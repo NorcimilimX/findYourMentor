@@ -1,7 +1,7 @@
 export default {
-    registerMentor(context, data) {
+    async registerMentor(context, data) {
+        const userId = context.rootGetters.userId
         const mentorData = {
-            id: context.rootGetters.userId,
             firstName: data.first,
             lastName: data.last,
             description: data.desc,
@@ -9,6 +9,20 @@ export default {
             areas: data.areas,
         }
 
-        context.commit('registerMentor', mentorData)
+        const response = await fetch(`https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors/${userId}.json`, {
+            method: 'PUT',
+            body: JSON.stringify(mentorData)
+        })
+
+        // const responseData = await response.json()
+
+        if (!response.ok) {
+            //error
+        }
+
+        context.commit('registerMentor', {
+            ...mentorData,
+            id: userId
+        })
     }
 };

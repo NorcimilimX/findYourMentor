@@ -9,7 +9,7 @@ const store = createStore({
     },
     state() {
         return {
-            userId: new Date().toISOString()
+            userId: Math.round((new Date().getSeconds() * new Date().getHours()) * 3.14)
         }
     },
     getters: {
