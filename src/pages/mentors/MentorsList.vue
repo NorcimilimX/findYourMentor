@@ -1,4 +1,7 @@
 <template>
+  <base-dialog :show="!!error" title="An Error was occurred!" @close="errorHandler"> <!--for bool returns-->
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <mentor-filter @change-filter="setFilters"></mentor-filter>
   </section>
@@ -32,9 +35,11 @@ import BaseCard from "../../components/ui/BaseCard.vue";
 import BaseButton from "../../components/ui/BaseButton.vue";
 import MentorFilter from "../../components/mentors/MentorFilter.vue";
 import BaseSpinner from "../../components/ui/BaseSpinner.vue";
+import BaseDialog from "../../components/ui/BaseDialog.vue";
 
 export default  {
   components: {
+    BaseDialog,
     BaseSpinner,
     BaseButton,
     BaseCard,
@@ -44,6 +49,7 @@ export default  {
   data() {
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -90,12 +96,19 @@ export default  {
     this.loadMentors()
   },
   methods: {
+    errorHandler() {
+      this.error = null
+    },
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters
     },
     async loadMentors() {
       this.isLoading = true
-      await this.$store.dispatch('mentors/loadMentors')
+      try {
+        await this.$store.dispatch('mentors/loadMentors')
+      } catch (error) {
+        this.error = error.message || 'Something went wrong'
+      }
       this.isLoading = false
     }
   }

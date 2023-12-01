@@ -27,12 +27,13 @@ export default {
     },
     async loadMentors(context) {
         const response = await fetch(
-            `https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors.json`
+            `https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors.json1`
         )
         const responseData = await response.json()
 
         if (!response.ok) {
-            ////
+            const error = new Error(responseData.message || 'Failed to fetch data!')
+            throw error
         }
 
         const mentors = []
