@@ -6,9 +6,12 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline" @click="loadMentors">Refresh</base-button>
-        <base-button v-if="!isMentor" link to="/register">Register as a Mentor</base-button>
+        <base-button v-if="!isMentor && !isLoading" link to="/register">Register as a Mentor</base-button>
       </div>
-      <ul v-if="hasMentors">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasMentors">
         <mentor-item
             v-for="mentor in filteredMentors"
             :id="mentor.id"
@@ -28,9 +31,11 @@ import MentorItem from "../../components/mentors/MentorItem.vue";
 import BaseCard from "../../components/ui/BaseCard.vue";
 import BaseButton from "../../components/ui/BaseButton.vue";
 import MentorFilter from "../../components/mentors/MentorFilter.vue";
+import BaseSpinner from "../../components/ui/BaseSpinner.vue";
 
 export default  {
   components: {
+    BaseSpinner,
     BaseButton,
     BaseCard,
     MentorItem,
@@ -38,6 +43,7 @@ export default  {
   },
   data() {
     return {
+      isLoading: false,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -77,7 +83,7 @@ export default  {
       })
     },
     hasMentors() {
-      return this.$store.getters['mentors/hasMentors']
+      return !this.isLoading && this.$store.getters['mentors/hasMentors']
     }
   },
   created() {
@@ -87,8 +93,10 @@ export default  {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters
     },
-    loadMentors() {
-      this.$store.dispatch('mentors/loadMentors')
+    async loadMentors() {
+      this.isLoading = true
+      await this.$store.dispatch('mentors/loadMentors')
+      this.isLoading = false
     }
   }
 }
