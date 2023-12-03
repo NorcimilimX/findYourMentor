@@ -1,33 +1,35 @@
 <template>
-  <base-dialog :show="!!error" title="An Error was occurred!" @close="errorHandler"> <!--for bool returns-->
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <mentor-filter @change-filter="setFilters"></mentor-filter>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button mode="outline" @click="loadMentors">Refresh</base-button>
-        <base-button v-if="!isMentor && !isLoading" link to="/register">Register as a Mentor</base-button>
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasMentors">
-        <mentor-item
-            v-for="mentor in filteredMentors"
-            :id="mentor.id"
-            :key="mentor.id"
-            :first-name="mentor.firstName"
-            :last-name="mentor.lastName"
-            :rate="mentor.hourlyRate"
-            :areas="mentor.areas"
-        ></mentor-item>
-      </ul>
-      <h3 v-else>No mentors found.</h3>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" title="An Error was occurred!" @close="errorHandler"> <!--for bool returns-->
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <mentor-filter @change-filter="setFilters"></mentor-filter>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline" @click="loadMentors(true)">Refresh</base-button>
+          <base-button v-if="!isMentor && !isLoading" link to="/register">Register as a Mentor</base-button>
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasMentors">
+          <mentor-item
+              v-for="mentor in filteredMentors"
+              :id="mentor.id"
+              :key="mentor.id"
+              :first-name="mentor.firstName"
+              :last-name="mentor.lastName"
+              :rate="mentor.hourlyRate"
+              :areas="mentor.areas"
+          ></mentor-item>
+        </ul>
+        <h3 v-else>No mentors found.</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 <script>
 import MentorItem from "../../components/mentors/MentorItem.vue";
@@ -37,7 +39,7 @@ import MentorFilter from "../../components/mentors/MentorFilter.vue";
 import BaseSpinner from "../../components/ui/BaseSpinner.vue";
 import BaseDialog from "../../components/ui/BaseDialog.vue";
 
-export default  {
+export default {
   components: {
     BaseDialog,
     BaseSpinner,
@@ -102,10 +104,10 @@ export default  {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters
     },
-    async loadMentors() {
+    async loadMentors(refresh = false) {
       this.isLoading = true
       try {
-        await this.$store.dispatch('mentors/loadMentors')
+        await this.$store.dispatch('mentors/loadMentors', {forceRefresh: refresh})
       } catch (error) {
         this.error = error.message || 'Something went wrong'
       }
