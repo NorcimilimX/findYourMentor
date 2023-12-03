@@ -9,7 +9,8 @@ const store = createStore({
     },
     state() {
         return {
-            userId: Math.round((new Date().getSeconds() * new Date().getHours()) * 3.14)
+            // userId: Math.round((new Date().getSeconds() * new Date().getHours()) * 3.14)
+            userId: '1319'
         }
     },
     getters: {

@@ -27,7 +27,7 @@ export default {
     },
     async loadMentors(context) {
         const response = await fetch(
-            `https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors.json1`
+            `https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors.json`
         )
         const responseData = await response.json()
 
