@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-dialog :show="!!error" title="An Error was occurred!" @close="errorHandler"> <!--for bool returns-->
+    <base-dialog :show="!!error" title="An Error was occurred!" @close="errorHandler"> <!-- !!error for bool returns-->
       <p>{{ error }}</p>
     </base-dialog>
     <section>
@@ -61,7 +61,7 @@ export default {
       this.isLoading = false
     },
     errorHandler() {
-
+      this.error = null
     }
   }
 }
