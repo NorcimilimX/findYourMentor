@@ -10,7 +10,8 @@
       <base-card>
         <div class="controls">
           <base-button mode="outline" @click="loadMentors(true)">Refresh</base-button>
-          <base-button v-if="!isMentor && !isLoading" link to="/register">Register as a Mentor</base-button>
+          <base-button v-if="!isLoggedIn" link to="/auth">Login</base-button>
+          <base-button v-if="isLoggedIn && !isMentor && !isLoading" link to="/register">Register as a Mentor</base-button>
         </div>
         <div v-if="isLoading">
           <base-spinner></base-spinner>
@@ -63,6 +64,9 @@ export default {
     }
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated
+    },
     isMentor() {
       return this.$store.getters['mentors/isMentor']
     },

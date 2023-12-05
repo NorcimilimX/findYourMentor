@@ -24,10 +24,10 @@ export default {
       return this.firstName + ' ' + this.lastName
     },
     mentorContactLink() {
-      return this.$route.path + this.id + '/contact'
+      return this.$route.path + '/' + this.id + '/contact'
     },
     mentorDetailLink() {
-      return this.$route.path + this.id
+      return this.$route.path + '/' + this.id
     }
   }
 }
