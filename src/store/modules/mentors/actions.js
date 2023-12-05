@@ -9,7 +9,9 @@ export default {
             areas: data.areas,
         }
 
-        const response = await fetch(`https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors/${userId}.json`, {
+        const token = context.rootGetters.token
+
+        const response = await fetch(`https://find-your-mentor-app-db-default-rtdb.firebaseio.com/mentors/${userId}.json?auth=` + token, {
             method: 'PUT',
             body: JSON.stringify(mentorData)
         })

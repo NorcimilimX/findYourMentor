@@ -23,7 +23,8 @@ export default {
     },
     async fetchRequests(context) {
         const mentorId = context.rootGetters.userId
-        const response = await fetch(`https://find-your-mentor-app-db-default-rtdb.firebaseio.com/requests/${mentorId}.json`)
+        const token = context.rootGetters.token
+        const response = await fetch(`https://find-your-mentor-app-db-default-rtdb.firebaseio.com/requests/${mentorId}.json?auth=` + token)
         const responseData = await response.json()
 
         if (!response.ok) {
