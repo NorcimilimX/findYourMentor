@@ -7,5 +7,8 @@ export default {
     },
     isAuthenticated(state) {
         return !!state.token // !!to return bool
+    },
+    didAutoLogout(state) {
+        return state.didAutoLogout
     }
 }

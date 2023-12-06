@@ -5,10 +5,9 @@ import getters from "./getters";
 export default {
     state() {
         return {
-            // userId: Math.round((new Date().getSeconds() * new Date().getHours()) * 3.14)
             userId: null,
             token: null,
-            tokenExpiration: null,
+            didAutoLogout: false
         }
     },
     mutations,
