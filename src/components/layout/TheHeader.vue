@@ -2,7 +2,7 @@
   <header>
     <nav>
       <h1>
-        <router-link to="/">
+        <router-link to="/" class="logolink">
           Find a Mentor
         </router-link>
       </h1>
@@ -103,5 +103,9 @@ header ul {
 
 li {
   margin: 0 0.5rem;
+}
+
+.logolink:hover {
+  color: #f391e3;
 }
 </style>

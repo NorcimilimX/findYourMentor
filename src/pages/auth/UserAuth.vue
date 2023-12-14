@@ -8,6 +8,7 @@
     </base-dialog>
     <base-card>
       <form @submit.prevent="submitForm">
+        <h2>Please login or signup for use an application</h2>
         <div class="form-control">
           <label for="email">Email</label>
           <input type="email" id="email" v-model.trim="email">
@@ -132,5 +133,13 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+h2 {
+  color: #3d008d;
+
+  &:hover {
+    color: #f391e3;
+  }
 }
 </style>
