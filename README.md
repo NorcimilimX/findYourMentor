@@ -16,7 +16,7 @@
 ![](public/images/loginAsUser.png)
 
 ## Mentor item details
-![](public/images/loginAsUser.png)
+![](public/images/mentorDetails.png)
 
 ## Filtering mentors
 ![](public/images/filter.png)
