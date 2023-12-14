@@ -1,6 +1,6 @@
 # findYourMentor
 
-# Installation - Clone the project, run command - npm install , to run locally - npm run watch - And that's it!
+# Installation - Clone the project, run command - `npm install` , to run locally - `npm run watch` - And that's it!
 
 ## Authentication page
 ![](public/images/loginPage.png)
